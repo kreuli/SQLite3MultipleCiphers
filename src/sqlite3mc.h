@@ -33,7 +33,8 @@
 #define CODEC_TYPE_CHACHA20  3
 #define CODEC_TYPE_SQLCIPHER 4
 #define CODEC_TYPE_RC4       5
-#define CODEC_TYPE_MAX       5
+#define CODEC_TYPE_CUSTOM    6
+#define CODEC_TYPE_MAX       6
 
 /*
 ** Definition of API functions
@@ -121,5 +122,9 @@ SQLITE_API unsigned char* wxsqlite3_codec_data(sqlite3* db, const char* zDbName,
 ** Define public SQLite3 Multiple Ciphers VFS interface
 */
 #include "sqlite3mc_vfs.h"
+
+#if HAVE_CIPHER_CUSTOM
+#include "cipher_custom.h"
+#endif
 
 #endif

@@ -152,6 +152,7 @@ mcRegisterCodecExtensions(sqlite3* db, char** pzErrMsg, const sqlite3_api_routin
 #include "cipher_chacha20.c"
 #include "cipher_sqlcipher.c"
 #include "cipher_sds_rc4.c"
+#include "cipher_custom.c"
 #include "cipher_common.c"
 #include "cipher_config.c"
 

@@ -61,13 +61,21 @@
 #endif
 
 /*
+** Custom cipher is disabled per default
+*/
+#ifndef HAVE_CIPHER_CUSTOM
+#define HAVE_CIPHER_CUSTOM 0
+#endif
+
+/*
 ** Check that at least one cipher is be supported
 */
 #if HAVE_CIPHER_AES_128_CBC == 0 &&  \
     HAVE_CIPHER_AES_256_CBC == 0 &&  \
     HAVE_CIPHER_CHACHA20    == 0 &&  \
     HAVE_CIPHER_SQLCIPHER   == 0 &&  \
-    HAVE_CIPHER_RC4         == 0
+    HAVE_CIPHER_RC4         == 0 &&  \
+    HAVE_CIPHER_CUSTOM      == 0
 #error Enable at least one cipher scheme!
 #endif
 

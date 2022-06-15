@@ -63,6 +63,9 @@ static CodecParameter globalCodecParameterTable[] =
 #if HAVE_CIPHER_RC4
   { "rc4",       CODEC_TYPE_RC4,       mcRC4Params },
 #endif
+#if HAVE_CIPHER_CUSTOM
+  { "custom",    CODEC_TYPE_CUSTOM,    NULL },
+#endif
   { "",          CODEC_TYPE_UNKNOWN,   NULL }
 };
 
@@ -162,6 +165,11 @@ static const CipherDescriptor* codecDescriptorTable[] =
 #endif
 #if HAVE_CIPHER_RC4
   &mcRC4Descriptor,
+#else
+  &mcDummyDescriptor,
+#endif
+#if HAVE_CIPHER_CUSTOM
+  &mcCustomDescriptor,
 #else
   &mcDummyDescriptor,
 #endif
