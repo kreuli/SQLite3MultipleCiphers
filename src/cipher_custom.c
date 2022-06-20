@@ -9,22 +9,27 @@
 
 #include "cipher_common.h"
 
-/* --- AES 256-bit cipher (wxSQLite3) --- */
+/* -- Custom cipher (bring-your-own) --- */
 #if HAVE_CIPHER_CUSTOM
 
 #include "cipher_custom.h"
 
-static int 
-GetLegacyCustomCipher(void* cipher)
-{
-  return 0;
-}
 
-static int
-GetReservedCustomCipher(void* cipher)
+/*
+** Configuration parameters for "custom" cipher
+**
+** - legacy mode : compatibility with System.Data.SQLite encryption
+**                 (page 1 fully encrypted)
+**                 only legacy mode is supported
+**                 possible value:  1 = yes
+*/
+
+SQLITE_PRIVATE CipherParams mcCustomParams[] =
 {
-  return 0;
-}
+  { "legacy", 0, 0, 0, 1},
+  CIPHER_PARAMS_SENTINEL
+};
+
 
 SQLITE_PRIVATE const CipherDescriptor mcCustomDescriptor =
 {

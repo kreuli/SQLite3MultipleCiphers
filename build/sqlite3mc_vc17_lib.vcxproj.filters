@@ -63,6 +63,9 @@
     <ClInclude Include="..\src\zlibwrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\cipher_custom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sqlite3mc.c">
