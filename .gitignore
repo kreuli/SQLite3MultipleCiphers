@@ -54,3 +54,4 @@ dkms.conf
 # Visual Studio Intermediate Files
 build/.vs/
 build/obj
+build/*.user
