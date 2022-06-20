@@ -64,7 +64,7 @@ static CodecParameter globalCodecParameterTable[] =
   { "rc4",       CODEC_TYPE_RC4,       mcRC4Params },
 #endif
 #if HAVE_CIPHER_CUSTOM
-  { "custom",    CODEC_TYPE_CUSTOM,    NULL },
+  { "custom",    CODEC_TYPE_CUSTOM,    mcCustomParams },
 #endif
   { "",          CODEC_TYPE_UNKNOWN,   NULL }
 };

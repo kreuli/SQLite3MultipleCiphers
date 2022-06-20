@@ -31,9 +31,8 @@ typedef struct _CustomCipher
 extern void* AllocateCustomCipher(sqlite3* db);
 extern void FreeCustomCipher(void* cipher);
 extern void CloneCustomCipher(void* cipherTo, void* cipherFrom);
-extern int GetPageSizeCustomCipher(void* cipher);
 extern unsigned char* GetSaltCustomCipher(void* cipher);
-extern void GenerateKeyCustomCipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt);
+extern void GenerateKeyCustomCipher(void* cipher, void* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt);
 extern int EncryptPageCustomCipher(void* cipher, int page, unsigned char* data, int len, int reserved);
 extern int DecryptPageCustomCipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck);
 
