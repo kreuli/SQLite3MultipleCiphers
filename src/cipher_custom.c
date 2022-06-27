@@ -14,6 +14,7 @@
 
 #include "cipher_custom.h"
 
+<<<<<<< HEAD
 
 /*
 ** Configuration parameters for "custom" cipher
@@ -30,6 +31,11 @@ SQLITE_PRIVATE CipherParams mcCustomParams[] =
   CIPHER_PARAMS_SENTINEL
 };
 
+
+static void GenerateKeyCustomCipherProxy(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+{
+    GenerateKeyCustomCipher(cipher, pBt, userPassword, passwordLength, rekey, cipherSalt);
+}
 
 SQLITE_PRIVATE const CipherDescriptor mcCustomDescriptor =
 {
