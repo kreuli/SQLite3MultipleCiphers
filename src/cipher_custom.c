@@ -14,8 +14,6 @@
 
 #include "cipher_custom.h"
 
-<<<<<<< HEAD
-
 /*
 ** Configuration parameters for "custom" cipher
 **
