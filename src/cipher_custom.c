@@ -32,7 +32,7 @@ SQLITE_PRIVATE CipherParams mcCustomParams[] =
 
 static void GenerateKeyCustomCipherProxy(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
-    GenerateKeyCustomCipher(cipher, pBt, userPassword, passwordLength, rekey, cipherSalt);
+    GenerateKeyCustomCipher(cipher, (void *)pBt, userPassword, passwordLength, rekey, cipherSalt);
 }
 
 SQLITE_PRIVATE const CipherDescriptor mcCustomDescriptor =
@@ -44,7 +44,7 @@ SQLITE_PRIVATE const CipherDescriptor mcCustomDescriptor =
             GetPageSizeCustomCipher,
             GetReservedCustomCipher,
             GetSaltCustomCipher,
-            GenerateKeyCustomCipher,
+            GenerateKeyCustomCipherProxy,
             EncryptPageCustomCipher,
             DecryptPageCustomCipher
 };
