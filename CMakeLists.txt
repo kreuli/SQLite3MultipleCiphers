@@ -1,9 +1,11 @@
 project(SQLite3MultipleCiphers)
 cmake_minimum_required(VERSION 3.21)
 
-set(HAVE_CIPHER_CUSTOM ON CACHE BOOL "Bring your own cipher.")
+# Uses built-in ciphers per default, set HAVE_CIPHER_CUSTOM to ON to use your own ciphers instead:
+# Example: cmake .. -DCMAKE_BUILD_TYPE=Release -DHAVE_CIPHER_CUSTOM=ON -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+set(HAVE_CIPHER_CUSTOM OFF CACHE BOOL "Bring your own cipher.")
 if (HAVE_CIPHER_CUSTOM)
-    add_compile_options(-DHAVE_CIPHER_CUSTOM)
+    add_compile_options(-DHAVE_CIPHER_CUSTOM=1)
 endif()
 
 # This is where all the source files are.
@@ -51,8 +53,7 @@ endif()
 # the needed include files and the command line tool (if created)
 set (CMAKE_INSTALL_PREFIX redist/${CMAKE_BUILD_TYPE})
 install(FILES ${REDIST_HEADERS} DESTINATION include)
+install(TARGETS sqlite3mc LIBRARY DESTINATION lib)
 if (NOT HAVE_CIPHER_CUSTOM)
-    install(TARGETS sqlite3mc sqlite3mc_shell
-            LIBRARY DESTINATION lib
-            RUNTIME DESTINATION bin)
+    install(TARGETS sqlite3mc_shell RUNTIME DESTINATION bin)
 endif()

@@ -61,10 +61,26 @@
 #endif
 
 /*
-** Custom cipher is disabled per default
+** Per default use the built-in ciphers (disable custom cipher)
 */
 #ifndef HAVE_CIPHER_CUSTOM
 #define HAVE_CIPHER_CUSTOM 0
+#endif
+
+/*
+** Disable builtin ciphers if custom cipher is enabled
+*/
+#if HAVE_CIPHER_CUSTOM
+#undef HAVE_CIPHER_AES_128_CBC
+#define HAVE_CIPHER_AES_128_CBC 0
+#undef HAVE_CIPHER_AES_256_CBC
+#define HAVE_CIPHER_AES_256_CBC 0
+#undef HAVE_CIPHER_CHACHA20
+#define HAVE_CIPHER_CHACHA20 0
+#undef HAVE_CIPHER_SQLCIPHER
+#define HAVE_CIPHER_SQLCIPHER 0
+#undef HAVE_CIPHER_RC4
+#define HAVE_CIPHER_RC4 0
 #endif
 
 /*
