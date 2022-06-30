@@ -1,6 +1,8 @@
 project(SQLite3MultipleCiphers)
 cmake_minimum_required(VERSION 3.18)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Uses built-in ciphers per default, set HAVE_CIPHER_CUSTOM to ON to use your own ciphers instead:
 # Example: cmake .. -DHAVE_CIPHER_CUSTOM=ON
 set(HAVE_CIPHER_CUSTOM OFF CACHE BOOL "Bring your own cipher.")
@@ -25,19 +27,58 @@ set(REDIST_HEADERS
     src/sqlite3mc_version.h
     src/sqlite3mc_vfs.h)
 
-# Build for Windows
-if(WIN32)
+# SQLite parameters
+add_compile_options(-DSQLITE_ENABLE_DEBUG=1)
+add_compile_options(-DSQLITE_THREADSAFE=1)
+add_compile_options(-DSQLITE_DQS=0)
+add_compile_options(-DSQLITE_MAX_ATTACHED=10)
+add_compile_options(-DSQLITE_ENABLE_EXPLAIN_COMMENTS=1)
+add_compile_options(-DSQLITE_SOUNDEX=1)
+add_compile_options(-DSQLITE_ENABLE_COLUMN_METADATA=1)
+add_compile_options(-DSQLITE_SECURE_DELETE=1)
+add_compile_options(-DSQLITE_ENABLE_DESERIALIZE=1)
+add_compile_options(-DSQLITE_ENABLE_FTS3=1)
+add_compile_options(-DSQLITE_ENABLE_FTS3_PARENTHESIS=1)
+add_compile_options(-DSQLITE_ENABLE_FTS4=1)
+add_compile_options(-DSQLITE_ENABLE_FTS5=1)
+add_compile_options(-DSQLITE_ENABLE_RTREE=1)
+add_compile_options(-DSQLITE_ENABLE_GEOPOLY=1)
+add_compile_options(-DSQLITE_CORE=1)
+add_compile_options(-DSQLITE_ENABLE_EXTFUNC=1)
+add_compile_options(-DSQLITE_ENABLE_MATH_FUNCTIONS=1)
+add_compile_options(-DSQLITE_ENABLE_CSV=1)
+add_compile_options(-DSQLITE_ENABLE_VSV=1)
+add_compile_options(-DSQLITE_ENABLE_CARRAY=1)
+add_compile_options(-DSQLITE_ENABLE_UUID=1)
+add_compile_options(-DSQLITE_TEMP_STORE=2)
+add_compile_options(-DSQLITE_USE_URI=1)
+add_compile_options(-DSQLITE_USER_AUTHENTICATION=1)
+add_compile_options(-DSQLITE_ENABLE_DBPAGE_VTAB=1)
+add_compile_options(-DSQLITE_ENABLE_DBSTAT_VTAB=1)
+add_compile_options(-DSQLITE_ENABLE_STMTVTAB=1)
+add_compile_options(-DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION=1)
+
+# Build for Windows (Visual Studio)
+if(MSVC)
+    # fail on error
+    add_compile_options(/WX)
+
+    # allow strcpy etc.
+    add_compile_options(-D_WINDOWS -DWIN32 -DUNICODE -D_UNICODE -D_CRT_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
+
+    # On Windows, use statically linked C/C++ runtime.
+    add_compile_options(/MT$<$<CONFIG:Debug>:d>)
+
     # Windows specific version info for the command line tool
     list(APPEND SHELL_SOURCES src/sqlite3mc_shell.rc)
 
-# Build for macOS
+# Build for macOS (Xcode)
 elseif(APPLE)
     # On macOS, we want to have universal binaries (ARM + Intel)
     set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
-    add_compile_options(-maes)
-    add_compile_options(-Wno-pointer-sign)
+    add_compile_options(-msse4.2 -maes -Wno-pointer-sign)
 
-# Build for Linux
+# Build for Linux (GCC)
 elseif(UNIX)
     add_compile_options(-msse4.2 -maes)
 endif()

@@ -22,7 +22,8 @@ algorithm or a different implementation), build with "HAVE_CIPHER_CUSTOM = 1" an
 2. In your own code, set the "cipher" parameter to "CODEC_TYPE_CUSTOM" after opening the DB, e.g.:
    sqlite3mc_config(m_db, "cipher", CODEC_TYPE_CUSTOM).
 
-NOTE: HAVE:CIPHER_CUSTOM is only supported when creating a static library!
+NOTE: As custom cipher mode relies on external symbols, unresolved at link time,
+      HAVE:CIPHER_CUSTOM is only supported when creating a static library!
 */
 
 #if HAVE_CIPHER_CUSTOM
