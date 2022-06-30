@@ -1,8 +1,8 @@
 project(SQLite3MultipleCiphers)
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.18)
 
 # Uses built-in ciphers per default, set HAVE_CIPHER_CUSTOM to ON to use your own ciphers instead:
-# Example: cmake .. -DCMAKE_BUILD_TYPE=Release -DHAVE_CIPHER_CUSTOM=ON -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+# Example: cmake .. -DHAVE_CIPHER_CUSTOM=ON
 set(HAVE_CIPHER_CUSTOM OFF CACHE BOOL "Bring your own cipher.")
 if (HAVE_CIPHER_CUSTOM)
     add_compile_options(-DHAVE_CIPHER_CUSTOM=1)
@@ -38,6 +38,8 @@ elseif(APPLE)
     add_compile_options(-Wno-pointer-sign)
 
 # Build for Linux
+elseif(UNIX)
+    add_compile_options(-msse4.2 -maes)
 endif()
 
 # Create a static library
