@@ -28,7 +28,7 @@ set(REDIST_HEADERS
     src/sqlite3mc_vfs.h)
 
 # SQLite parameters
-add_compile_options(-DSQLITE_ENABLE_DEBUG=1)
+add_compile_options(-DSQLITE_ENABLE_DEBUG=$<CONFIG:Debug>)
 add_compile_options(-DSQLITE_THREADSAFE=1)
 add_compile_options(-DSQLITE_DQS=0)
 add_compile_options(-DSQLITE_MAX_ATTACHED=10)
@@ -57,6 +57,7 @@ add_compile_options(-DSQLITE_ENABLE_DBPAGE_VTAB=1)
 add_compile_options(-DSQLITE_ENABLE_DBSTAT_VTAB=1)
 add_compile_options(-DSQLITE_ENABLE_STMTVTAB=1)
 add_compile_options(-DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION=1)
+add_compile_options(-DSQLITE_OMIT_LOAD_EXTENSION=1)
 
 # Build for Windows (Visual Studio)
 if(MSVC)
